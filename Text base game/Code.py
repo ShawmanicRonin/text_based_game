@@ -5,31 +5,41 @@ import sys
 Parts = ["Stock", "Barrel", "Trigger group", "Sight", "Reciever"] #These are my resources in the game
 
 #testing inventory
-#inventory = ["Barrel", "Barrel", "Barrel", "Barrel", "Stock", "Stock", "Stock", "Stock", "Reciever", "Reciever", "Reciever", "Reciever", "Reciever", "Trigger group", "Trigger group", "Trigger group", "Trigger group", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight",]
-inventory = [] #this list is edited as the game progresses.
+inventory = ["Barrel", "Barrel", "Barrel", "Barrel", "Stock", "Stock", "Stock", "Stock", "Reciever", "Reciever", "Reciever", "Reciever", "Reciever", "Trigger group", "Trigger group", "Trigger group", "Trigger group", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight",]
+#inventory = [] #this list is edited as the game progresses.
 
 def collect(part): #This function allows you to put parts into your inventory or leave them behind.
     print(">>")
     print(f"You found a {part}.")
     print("Would you like to take it with you?")
-    print("Y:              1")
     print("")
-    print("N:              0")
+    print("Y / N")
     print("")
-    print("Stop searching: 5")
+    print(f'Stop searching: "S"')
     print("")
-    choice = int(input('> '))
-    choice
-    if choice == 1:
+    answer = str(input('> '))
+    answer
+    if answer == 'Y':
         inventory.append(part)
         print(">>")
         print(f"You placed the {part} in your bag.")
         time.sleep(2)
-    elif choice == 0:
+    elif answer == 'y':
+        inventory.append(part)
+        print(">>")
+        print(f"You placed the {part} in your bag.")
+        time.sleep(2)
+    elif answer == 'N':
         print(">>")
         print(f"You left the {part} behind.")
         time.sleep(2) #I felt like adding a delay between input and result makes it fell more like a game.
-    elif choice == 5:
+    elif answer == 'n':
+        print(">>")
+        print(f"You left the {part} behind.")
+        time.sleep(2) #I felt like adding a delay between input and result makes it fell more like a game.
+    elif answer == 'S':
+        Next_move()
+    elif answer == 's':
         Next_move()
     else:
         error()
@@ -96,16 +106,63 @@ def Next_move(): #This is my menu apart from the main menu. you cannot quit from
     elif choice == 4:
         Main_Menu()
 
+def track_inventory():
+    if 'Stock' in inventory:
+        if inventory.count('Stock') == 1:
+            print(f'You have a {inventory.count('Stock')} Stock')
+        elif inventory.count('Stock') > 1:
+            print(f'You have {inventory.count('Stock')} Stocks')
+    if 'Barrel' in inventory:
+        if inventory.count('Barrel') == 1:
+            print(f'You have a {inventory.count('Barrel')} Barrel')
+        elif inventory.count('Barrel') > 1:
+            print(f'You have {inventory.count('Barrel')} Barrels')
+    if 'Trigger group' in  inventory:
+        if inventory.count('Trigger group') == 1:
+            print(f'You have a {inventory.count('Trigger group')} Trigger group')
+        elif inventory.count('Trigger group') > 1:
+            print(f'You have {inventory.count('Trigger group')} Trigger groups')
+    if 'Sight' in  inventory:
+        if inventory.count('Sight') == 1:
+            print(f'You have a {inventory.count('Sight')} individual sight')
+        elif inventory.count('Sight') > 1:
+            print(f'You have {inventory.count('Sight')} individual sights')
+    if 'Reciever' in  inventory:
+        if inventory.count('Reciever') == 1:
+            print(f'You have a {inventory.count('Reciever')} Reciever')
+        elif inventory.count('Reciever') > 1:
+            print(f'You have {inventory.count('Reciever')} Recievers')
+    if 'Rifle' in  inventory:
+        if inventory.count('Rifle') == 1:
+            print(f'You have a {inventory.count('Rifle')} Rifle')
+        elif inventory.count('Rifle') > 1:
+            print(f'You have {inventory.count('Rifle')} Rifles')
+    if 'Handgun' in  inventory:
+        if inventory.count('Handgun') == 1:
+            print(f'You have a {inventory.count('Handgun')} Handgun')
+        elif inventory.count('Handgun') > 1:
+            print(f'You have {inventory.count('Handgun')} Handguns')
+    if 'Shotgun' in  inventory:
+        if inventory.count('Shotgun') == 1:
+            print(f'You have a {inventory.count('Shotgun')} Shotgun')
+        elif inventory.count('Shotgun') > 1:
+            print(f'You have {inventory.count('Shotgun')} Shotguns')
+    if 'AR-15' in  inventory:
+        if inventory.count('AR-15') == 1:
+            print(f'You have a {inventory.count('AR-15')} AR-15')
+        elif inventory.count('AR-15') > 1:
+            print(f'You have {inventory.count('AR-15')} AR-15s')
+
 def inventory_man(): #This function allows you to edit the inventory list
-    print(inventory)
+    print('>>')
+    track_inventory()
     print("Would you like to drop something?")
-    print("Y: 1")
-    print("N: 0")
+    print("Y / N")
     print("")
-    edit = int(input("> "))
-    if edit == 1:
+    edit = str(input("> "))
+    if edit == 'Y':
         print(">>")
-        print(inventory)
+        track_inventory()
         print("Drop Item:       1")
         print("Clear inventory: 2")
         print("Plan next move:  3")
@@ -114,35 +171,72 @@ def inventory_man(): #This function allows you to edit the inventory list
         selec
         if selec == 1:
             print(">>")
-            print("What index do you want to manage?")
+            print("What type of part do you want to manage?")
             print("")
-            item = inventory[int(input("> "))]
-            print(f"Would you like to drop {item}?")
-            print("Y: 1")
-            print("N: 0")
+            k = inventory
+            x = k.index(str(input()))
+            item = inventory[x]
+            print(f"Would you like to drop a {item}?")
+            print("Y / N")
             print("")
-            action = int(input("> "))
-            if action == 1:
+            action = str(input("> "))
+            if action == 'Y':
                 inventory.remove(item)
                 print(">>")
-                print(f"You dropped the {item}.")
-                print(inventory)
+                print(f"You dropped one of the {item}s.")
+                track_inventory()
                 print('Would you like to further edit your inventory?')
-                print("Y: 1")
-                print("N: 0")
+                print("Y / N")
                 print("")
-                choice = int(input('> '))
+                choice = str(input('> '))
                 choice
-                if choice == 1:
+                if choice == 'Y':
                     inventory_man()
-                elif choice == 0:
+                if choice == 'y':
+                    inventory_man()
+                elif choice == 'N':
                     print(">>")
                     print("You put your bag away")
                     Next_move()
+                elif choice == 'n':
+                    print(">>")
+                    print("You put your bag away")
+                    Next_move()
+                elif choice == int:
+                    error()
+                    choice
                 else:
                     error()
+                    choice
+            if action == 'y':
+                inventory.remove(item)
+                print(">>")
+                print(f"You dropped one of the {item}s.")
+                track_inventory()
+                print('Would you like to further edit your inventory?')
+                print("Y / N")
+                print("")
+                choice = str(input('> '))
+                choice
+                if choice == 'Y':
                     inventory_man()
-            elif action == 0:
+                if choice == 'y':
+                    inventory_man()
+                elif choice == 'N':
+                    print(">>")
+                    print("You put your bag away")
+                    Next_move()
+                elif choice == 'n':
+                    print(">>")
+                    print("You put your bag away")
+                    Next_move()
+                elif choice == int:
+                    error()
+                    choice
+                else:
+                    error()
+                    choice
+            elif action == 'N':
                 print(">>")
                 print(f"You put the {item} back in your bag")
                 print("Continue editing inventory: 1")
@@ -154,12 +248,36 @@ def inventory_man(): #This function allows you to edit the inventory list
                     inventory_man()
                 elif selec1 == 2:
                     Next_move()
+                elif selec1 == str:
+                    error()
+                    selec1
                 else:
                     error()
+                    selec1
+            elif action == 'n':
+                print(">>")
+                print(f"You put the {item} back in your bag")
+                print("Continue editing inventory: 1")
+                print("Plan your next move:        2")
+                print("")
+                selec1 = int(input("> "))
+                selec1
+                if selec1 == 1:
                     inventory_man()
+                elif selec1 == 2:
+                    Next_move()
+                elif selec1 == str:
+                    error()
+                    selec1
+                else:
+                    error()
+                    selec1
+            elif action == int:
+                error()
+                action
             else:
                 error()
-                inventory_man()
+                action
         elif selec == 2:
             inventory.clear()
             print(">>")
@@ -167,11 +285,150 @@ def inventory_man(): #This function allows you to edit the inventory list
             Next_move()
         elif selec == 3:
             Next_move()
+        elif selec == str:
+            error()
+            selec
         else:
             error()
-            inventory_man()
-    elif edit == 0:
+            selec
+    if edit == 'y':
+        print(">>")
+        track_inventory()
+        print("Drop Item:       1")
+        print("Clear inventory: 2")
+        print("Plan next move:  3")
+        print("")
+        selec = int(input("> "))
+        selec
+        if selec == 1:
+            print(">>")
+            print("What type of part do you want to manage?")
+            print("")
+            k = inventory
+            x = k.index(str(input()))
+            item = inventory[x]
+            print(f"Would you like to drop a {item}?")
+            print("Y / N")
+            print("")
+            action = str(input("> "))
+            if action == 'Y':
+                inventory.remove(item)
+                print(">>")
+                print(f"You dropped one of the {item}s.")
+                track_inventory()
+                print('Would you like to further edit your inventory?')
+                print("Y / N")
+                print("")
+                choice = str(input('> '))
+                choice
+                if choice == 'Y':
+                    inventory_man()
+                if choice == 'y':
+                    inventory_man()
+                elif choice == 'N':
+                    print(">>")
+                    print("You put your bag away")
+                    Next_move()
+                elif choice == 'n':
+                    print(">>")
+                    print("You put your bag away")
+                    Next_move()
+                elif choice == int:
+                    error()
+                    choice
+                else:
+                    error()
+                    choice
+            if action == 'y':
+                inventory.remove(item)
+                print(">>")
+                print(f"You dropped one of the {item}s.")
+                track_inventory()
+                print('Would you like to further edit your inventory?')
+                print("Y / N")
+                print("")
+                choice = str(input('> '))
+                choice
+                if choice == 'Y':
+                    inventory_man()
+                if choice == 'y':
+                    inventory_man()
+                elif choice == 'N':
+                    print(">>")
+                    print("You put your bag away")
+                    Next_move()
+                elif choice == 'n':
+                    print(">>")
+                    print("You put your bag away")
+                    Next_move()
+                elif choice == int:
+                    error()
+                    choice
+                else:
+                    error()
+                    choice
+            elif action == 'N':
+                print(">>")
+                print(f"You put the {item} back in your bag")
+                print("Continue editing inventory: 1")
+                print("Plan your next move:        2")
+                print("")
+                selec1 = int(input("> "))
+                selec1
+                if selec1 == 1:
+                    inventory_man()
+                elif selec1 == 2:
+                    Next_move()
+                elif selec1 == str:
+                    error()
+                    selec1
+                else:
+                    error()
+                    selec1
+            elif action == 'n':
+                print(">>")
+                print(f"You put the {item} back in your bag")
+                print("Continue editing inventory: 1")
+                print("Plan your next move:        2")
+                print("")
+                selec1 = int(input("> "))
+                selec1
+                if selec1 == 1:
+                    inventory_man()
+                elif selec1 == 2:
+                    Next_move()
+                elif selec1 == str:#play game and see if you can find any issues with current systems. 
+                    error()
+                    selec1
+                else:
+                    error()
+                    selec1
+            elif action == int:
+                error()
+                action
+            else:
+                error()
+                action
+        elif selec == 2:
+            inventory.clear()
+            print(">>")
+            print("You emptied your bag.")
+            Next_move()
+        elif selec == 3:
+            Next_move()
+        elif selec == str:
+            error()
+            selec
+        else:
+            error()
+            selec
+    elif edit == 'N':
         Next_move()
+    elif edit == 'n':
+        Next_move()
+    elif edit == str:
+        error()
+        edit
     else:
         error()
         inventory_man()
@@ -188,11 +445,9 @@ def craft_rifle():
     inventory.append("Rifle")
     print(">>")
     print("You assembled a Rifle!")
-    print(inventory)
+    track_inventory()
     print("Would you like to craft something else?")
-    print("Y: 1")
-    print("")
-    print("N: 0")
+    print("Y / N")
     print("")
 
 def craft_handgun():
@@ -204,10 +459,9 @@ def craft_handgun():
     inventory.append("Handgun")
     print(">>")
     print("You assembled a Handgun!")
-    print(inventory)
+    track_inventory()
     print("Would you like to craft something else?")
-    print("Y: 1")
-    print("N: 0")
+    print("Y / N")
     print("")
 
 def craft_shotgun():
@@ -219,10 +473,9 @@ def craft_shotgun():
     inventory.append("Shotgun")
     print(">>")
     print("You assembled a Shotgun!")
-    print(inventory)
+    track_inventory()
     print("Would you like to craft something else?")
-    print("Y: 1")
-    print("N: 0")
+    print("Y / N")
     print("")
 
 def craft_ar():
@@ -237,10 +490,9 @@ def craft_ar():
     print(">>")
     print("You assembled an AR-15!!!")
     print("How did you find this easter egg!? :D")
-    print(inventory)
+    track_inventory()
     print("Would you like to craft something else?")
-    print("Y: 1")
-    print("N: 0")
+    print("Y / N")
     print("")
 
 def rifle_recipe():
@@ -320,52 +572,86 @@ def crafting(): #This function determins the logic of crafting.
         choice1
         if choice1 == 1:
             craft_rifle()
-            choice2 = int(input("> "))
-            if choice2 == 1:
+            choice2 = str(input("> "))
+            if choice2 == 'Y':
                 crafting()
-            elif choice2 == 0:
+            if choice2 == 'y':
+                crafting()
+            elif choice2 == 'N':
                 Next_move()
+            elif choice2 == 'n':
+                Next_move()
+            elif choice2 == int:
+                error()
+                choice2
             else:
                 error()
-                crafting()
+                choice2
         elif choice1 == 2:
             craft_handgun()
-            choice2 = int(input("> "))
-            if choice2 == 1:
+            choice2 = str(input("> "))
+            if choice2 == 'Y':
                 crafting()
-            elif choice2 == 0:
+            if choice2 == 'y':
+                crafting()
+            elif choice2 == 'N':
                 Next_move()
+            elif choice2 == 'n':
+                Next_move()
+            elif choice2 == int:
+                error()
+                choice2
             else:
                 error()
-                crafting()
+                choice2
         elif choice1 == 3:
             craft_shotgun()
-            choice2 = int(input("> "))
-            if choice2 == 1:
+            choice2 = str(input("> "))
+            if choice2 == 'Y':
                 crafting()
-            elif choice2 == 0:
+            if choice2 == 'y':
+                crafting()
+            elif choice2 == 'N':
                 Next_move()
+            elif choice2 == 'n':
+                Next_move()
+            elif choice2 == int:
+                error()
+                choice2
             else:
                 error()
-                crafting()
+                choice2
         elif choice1 == 4:
             crafting()
         elif choice1 == 421: #If you input the number of my old squadron then you will get a special gun! granted you have the materials...
             craft_ar()
-            choice2 = int(input("> "))
-            if choice2 == 1:
+            choice2 = str(input("> "))
+            if choice2 == 'Y':
                 crafting()
-            elif choice2 == 0:
+            if choice2 == 'y':
+                crafting()
+            elif choice2 == 'N':
                 Next_move()
+            elif choice2 == 'n':
+                Next_move()
+            elif choice2 == int:
+                error()
+                choice2
             else:
                 error()
-                crafting()
+                choice2
+        elif choice1 == str:
+            error()
+            choice1
     elif choice == 2:
         reference()
     elif choice == 3:
         print(">>")
         print("You left your workshop")
         Next_move()
+    elif choice == str:
+        error()
+        choice
     else:
         error()
         crafting()
@@ -409,3 +695,23 @@ def end_game(): #A general purpose function to end the game properly.
     sys.exit()
 
 #My whole game can be accessed by calling this single function.
+Main_Menu()
+
+
+
+
+def answer():
+    answer_res = str(input('> '))
+    if answer_res == 'y':
+        print('Yes')
+        answer()
+    elif answer_res == 'Y':
+        print('Yes')
+        answer()
+    elif answer_res == 'n':
+        print('No')
+        answer()
+    elif answer_res == 'N':
+        print('No')
+        answer()
+
