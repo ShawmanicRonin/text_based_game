@@ -7,6 +7,7 @@ Parts = ["Stock", "Barrel", "Trigger group", "Sight", "Reciever"] #These are my 
 #testing inventory
 inventory = ["Barrel", "Barrel", "Barrel", "Barrel", "Stock", "Stock", "Stock", "Stock", "Reciever", "Reciever", "Reciever", "Reciever", "Reciever", "Trigger group", "Trigger group", "Trigger group", "Trigger group", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight",]
 #inventory = [] #this list is edited as the game progresses.
+collection = [] #This list is related to displaying what you found after each search.
 
 def collect(part): #This function allows you to put parts into your inventory or leave them behind.
     print(">>")
@@ -21,11 +22,13 @@ def collect(part): #This function allows you to put parts into your inventory or
     answer
     if answer == 'Y':
         inventory.append(part)
+        collection.append(part)
         print(">>")
         print(f"You placed the {part} in your bag.")
         time.sleep(2)
     elif answer == 'y':
         inventory.append(part)
+        collection.append(part)
         print(">>")
         print(f"You placed the {part} in your bag.")
         time.sleep(2)
@@ -40,7 +43,11 @@ def collect(part): #This function allows you to put parts into your inventory or
     elif answer == 'S':
         Next_move()
     elif answer == 's':
+        track_collection()
         Next_move()
+    elif answer == int(input()):
+        error()
+        answer
     else:
         error()
         collect(part)
@@ -82,8 +89,8 @@ def prompt(): #This is the function that prompts the player to collect parts
         prompt()
     for x in range(1, buildings):
         searching()
+    track_collection()
     Next_move()
-            #time.sleep(10)
 
 def Next_move(): #This is my menu apart from the main menu. you cannot quit from here.
     print(">>")
@@ -106,50 +113,81 @@ def Next_move(): #This is my menu apart from the main menu. you cannot quit from
     elif choice == 4:
         Main_Menu()
 
+def track_collection(): #I was able to re-use and modify my track_inventory function.
+    print(">>")
+    print("The haul from your efforts.")
+    print('')
+    if 'Stock' in collection:
+        if collection.count('Stock') == 1:
+            print(f'{collection.count('Stock')} Stock')
+        elif collection.count('Stock') > 1:
+            print(f'{collection.count('Stock')} Stocks')
+    if 'Barrel' in collection:
+        if collection.count('Barrel') == 1:
+            print(f'{collection.count('Barrel')} Barrel')
+        elif collection.count('Barrel') > 1:
+            print(f'{collection.count('Barrel')} Barrels')
+    if 'Trigger group' in  collection:
+        if collection.count('Trigger group') == 1:
+            print(f'{collection.count('Trigger group')} Trigger group')
+        elif collection.count('Trigger group') > 1:
+            print(f'{collection.count('Trigger group')} Trigger groups')
+    if 'Sight' in  collection:
+        if collection.count('Sight') == 1:
+            print(f'{collection.count('Sight')} individual sight')
+        elif collection.count('Sight') > 1:
+            print(f'{collection.count('Sight')} individual sights')
+    if 'Reciever' in  collection:
+        if collection.count('Reciever') == 1:
+            print(f'{collection.count('Reciever')} Reciever')
+        elif collection.count('Reciever') > 1:
+            print(f'{collection.count('Reciever')} Recievers')
+    collection.clear()
+
 def track_inventory():
     if 'Stock' in inventory:
         if inventory.count('Stock') == 1:
-            print(f'You have a {inventory.count('Stock')} Stock')
+            print(f'You have {inventory.count('Stock')} Stock')
         elif inventory.count('Stock') > 1:
             print(f'You have {inventory.count('Stock')} Stocks')
     if 'Barrel' in inventory:
         if inventory.count('Barrel') == 1:
-            print(f'You have a {inventory.count('Barrel')} Barrel')
+            print(f'You have {inventory.count('Barrel')} Barrel')
         elif inventory.count('Barrel') > 1:
             print(f'You have {inventory.count('Barrel')} Barrels')
     if 'Trigger group' in  inventory:
         if inventory.count('Trigger group') == 1:
-            print(f'You have a {inventory.count('Trigger group')} Trigger group')
+            print(f'You have {inventory.count('Trigger group')} Trigger group')
         elif inventory.count('Trigger group') > 1:
             print(f'You have {inventory.count('Trigger group')} Trigger groups')
     if 'Sight' in  inventory:
         if inventory.count('Sight') == 1:
-            print(f'You have a {inventory.count('Sight')} individual sight')
+            print(f'You have {inventory.count('Sight')} individual sight')
         elif inventory.count('Sight') > 1:
             print(f'You have {inventory.count('Sight')} individual sights')
     if 'Reciever' in  inventory:
         if inventory.count('Reciever') == 1:
-            print(f'You have a {inventory.count('Reciever')} Reciever')
+            print(f'You have {inventory.count('Reciever')} Reciever')
         elif inventory.count('Reciever') > 1:
             print(f'You have {inventory.count('Reciever')} Recievers')
     if 'Rifle' in  inventory:
         if inventory.count('Rifle') == 1:
-            print(f'You have a {inventory.count('Rifle')} Rifle')
+            print(f'You have {inventory.count('Rifle')} Rifle')
         elif inventory.count('Rifle') > 1:
             print(f'You have {inventory.count('Rifle')} Rifles')
     if 'Handgun' in  inventory:
         if inventory.count('Handgun') == 1:
-            print(f'You have a {inventory.count('Handgun')} Handgun')
+            print(f'You have {inventory.count('Handgun')} Handgun')
         elif inventory.count('Handgun') > 1:
             print(f'You have {inventory.count('Handgun')} Handguns')
     if 'Shotgun' in  inventory:
         if inventory.count('Shotgun') == 1:
-            print(f'You have a {inventory.count('Shotgun')} Shotgun')
+            print(f'You have {inventory.count('Shotgun')} Shotgun')
         elif inventory.count('Shotgun') > 1:
             print(f'You have {inventory.count('Shotgun')} Shotguns')
     if 'AR-15' in  inventory:
         if inventory.count('AR-15') == 1:
-            print(f'You have a {inventory.count('AR-15')} AR-15')
+            print(f'You have {inventory.count('AR-15')} AR-15')
         elif inventory.count('AR-15') > 1:
             print(f'You have {inventory.count('AR-15')} AR-15s')
 
@@ -172,6 +210,7 @@ def inventory_man(): #This function allows you to edit the inventory list
         if selec == 1:
             print(">>")
             print("What type of part do you want to manage?")
+            print("Valid Inputs(case sensitive): Stock, Barrel, Trigger group, Sight, Reciever")
             print("")
             k = inventory
             x = k.index(str(input()))
@@ -279,10 +318,24 @@ def inventory_man(): #This function allows you to edit the inventory list
                 error()
                 action
         elif selec == 2:
-            inventory.clear()
-            print(">>")
-            print("You emptied your bag.")
-            Next_move()
+            print("Are you sure you want to empty your bag?")
+            print("This cannot be undone.")
+            delete = str(input('> '))
+            delete
+            if delete == 'y':
+                inventory.clear()
+                print(">>")
+                print("You emptied your bag.")
+                Next_move()
+            elif delete == 'Y':
+                inventory.clear()
+                print(">>")
+                print("You emptied your bag.")
+                Next_move()
+            elif delete == 'N':
+                inventory_man()
+            elif delete == 'n':
+                inventory_man()
         elif selec == 3:
             Next_move()
         elif selec == str:
@@ -434,21 +487,177 @@ def inventory_man(): #This function allows you to edit the inventory list
         inventory_man()
 
 
+def check_inv(value):
+    if (value in inventory):
+        return True
+    else:
+        print(f'You do not have enough {value}s')
+        return False
+
+def check_sights(value):
+    if inventory.count(value) >= 2:
+        return True
+    else:
+        print("You do not have a pair of sights to use")
+        crafting()
+
+#Something is wrong witht the crafting fucntion. 
+
+def check_rifle():
+    check_inv('Stock')
+    if check_inv('Stock') is True:
+        frst_chk = True
+    else:
+        frst_chk = False
+    check_inv('Barrel')
+    if check_inv('Barrel') is True:
+        scnd_chk = True
+    else:
+        scnd_chk = False
+    check_inv('Trigger group')
+    if check_inv('Trigger group') is True:
+        thrd_chk = True
+    else:
+        thrd_chk = False
+    check_sights('Sight')
+    if check_sights("Sight") is True:
+        frth_chk = True
+    else:
+        frth_chk = False
+    check_inv('Reciever')
+    if check_inv('Reciever') is True:
+        fth_chk = True
+    else:
+        fth_chk = False
+    if frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk is True:
+        return True
+    elif frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk == False:
+        return False
+
+def check_handgun():
+    check_inv('Barrel')
+    if check_inv('Barrel') is True:
+        frst_chk = True
+    else:
+        frst_chk = False
+    check_inv('Trigger group')
+    if check_inv('Trigger group') is True:
+        scnd_chk = True
+    else:
+        scnd_chk = False
+    check_sights('Sight')
+    if check_sights('Sight') is True:
+        thrd_chk = True
+    else:
+        thrd_chk = False
+    check_inv('Reciever')
+    if check_inv('Reciever') is True:
+        frth_chk = True
+    else:
+        fth_chk = False
+    if frst_chk and scnd_chk and thrd_chk and frth_chk is True:
+        inventory.remove("Barrel")
+        inventory.remove("Trigger group")
+        inventory.remove("Sight")
+        inventory.remove("Sight")
+        inventory.remove("Reciever")
+        return True
+    elif frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk == False:
+        return False
+
+def check_shotgun():
+    check_inv('Stock')
+    if check_inv('Stock') is True:
+        frst_chk = True
+    else:
+        frst_chk = False
+    check_inv('Barrel')
+    if check_inv('Barrel') is True:
+        scnd_chk = True
+    else:
+        scnd_chk = False
+    check_inv('Trigger group')
+    if check_inv('Trigger group') is True:
+        thrd_chk = True
+    else:
+        thrd_chk = False
+    check_sights()
+    if check_inv('Sight') is True:
+        frth_chk = True
+    else:
+        frth_chk = False
+    check_inv('Reciever')
+    if check_inv('Reciever') is True:
+        fth_chk = True
+    else:
+        fth_chk = False
+    if frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk is True:
+        inventory.remove("Stock")
+        inventory.remove("Barrel")
+        inventory.remove("Trigger group")
+        inventory.remove("Sight")
+        inventory.remove("Reciever")
+        return True
+    elif frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk == False:
+        return False
+
+def check_AR():
+    check_inv('Stock')
+    check_inv('Barrel')
+    check_inv('Trigger group')
+    check_sights()
+    check_inv('Reciever')
+    if check_inv('Stock') is True:
+        frst_chk = True
+    else:
+        frst_chk = False
+    if check_inv('Barrel') is True:
+        scnd_chk = True
+    else:
+        scnd_chk = False
+    if check_inv('Trigger group') is True:
+        thrd_chk = True
+    else:
+        thrd_chk = False
+    if check_sights() is True:
+        frth_chk = True
+    else:
+        frth_chk = False
+    if check_sights('Reciever') is True:
+        fth_chk = True
+    else:
+        fth_chk = False
+    if frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk is True:
+        inventory.remove("Stock")
+        inventory.remove("Barrel")
+        inventory.remove("Trigger group")
+        inventory.remove("Sight")
+        inventory.remove("Sight")
+        inventory.remove("Reciever")
+        inventory.remove("Reciever")
+        return True
+    elif frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk == False:
+        return False
+
 
 def craft_rifle():
-    inventory.remove("Stock")
-    inventory.remove("Barrel")
-    inventory.remove("Trigger group")
-    inventory.remove("Sight")
-    inventory.remove("Sight")
-    inventory.remove("Reciever")
-    inventory.append("Rifle")
-    print(">>")
-    print("You assembled a Rifle!")
-    track_inventory()
-    print("Would you like to craft something else?")
-    print("Y / N")
-    print("")
+    check_rifle()
+    if check_rifle == True:
+        inventory.remove("Stock")
+        inventory.remove("Barrel")
+        inventory.remove("Trigger group")
+        inventory.remove("Sight")
+        inventory.remove("Sight")
+        inventory.remove("Reciever")
+        print(">>")
+        print("You assembled a Rifle!")
+        track_inventory()
+        print("Would you like to craft something else?")
+        print("Y / N")
+        print("")
+    elif check_rifle == False:
+        print("You need more parts")
+        crafting()
 
 def craft_handgun():
     inventory.remove("Barrel")
@@ -696,22 +905,3 @@ def end_game(): #A general purpose function to end the game properly.
 
 #My whole game can be accessed by calling this single function.
 Main_Menu()
-
-
-
-
-def answer():
-    answer_res = str(input('> '))
-    if answer_res == 'y':
-        print('Yes')
-        answer()
-    elif answer_res == 'Y':
-        print('Yes')
-        answer()
-    elif answer_res == 'n':
-        print('No')
-        answer()
-    elif answer_res == 'N':
-        print('No')
-        answer()
-

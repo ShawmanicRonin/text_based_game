@@ -1,2 +1,2 @@
-from Code import Main
-Main()
+from Code import Main_Menu
+Main_Menu()
