@@ -5,7 +5,7 @@ import sys
 Parts = ["Stock", "Barrel", "Trigger group", "Sight", "Reciever"] #These are my resources in the game
 
 #testing inventory
-inventory = ["Barrel", "Barrel", "Barrel", "Barrel", "Stock", "Stock", "Stock", "Stock", "Reciever", "Reciever", "Reciever", "Reciever", "Reciever", "Trigger group", "Trigger group", "Trigger group", "Trigger group", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight",]
+inventory = ["Stock", "Stock", "Stock", "Stock", "Reciever", "Reciever", "Reciever", "Reciever", "Reciever", "Trigger group", "Trigger group", "Trigger group", "Trigger group", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight",]
 #inventory = [] #this list is edited as the game progresses.
 collection = [] #This list is related to displaying what you found after each search.
 
@@ -491,173 +491,108 @@ def check_inv(value):
     if (value in inventory):
         return True
     else:
-        print(f'You do not have enough {value}s')
-        return False
+        pass
+        crafting()
 
 def check_sights(value):
     if inventory.count(value) >= 2:
         return True
     else:
-        print("You do not have a pair of sights to use")
+        pass
         crafting()
 
 #Something is wrong witht the crafting fucntion. 
 
 def check_rifle():
+    T = True
+    F = False
     check_inv('Stock')
-    if check_inv('Stock') is True:
-        frst_chk = True
+    if check_inv('Stock') == True:
+        frst_chk == T
     else:
-        frst_chk = False
+        frst_chk = F
     check_inv('Barrel')
-    if check_inv('Barrel') is True:
-        scnd_chk = True
+    if check_inv('Barrel') == True:
+        scnd_chk == T
     else:
-        scnd_chk = False
+        scnd_chk = F
     check_inv('Trigger group')
-    if check_inv('Trigger group') is True:
-        thrd_chk = True
+    if check_inv('Trigger group') == True:
+        thrd_chk == T
     else:
-        thrd_chk = False
+        thrd_chk = F
     check_sights('Sight')
-    if check_sights("Sight") is True:
-        frth_chk = True
+    if check_sights("Sight") == True:
+        frth_chk == T
     else:
-        frth_chk = False
+        frth_chk = F
     check_inv('Reciever')
-    if check_inv('Reciever') is True:
-        fth_chk = True
+    if check_inv('Reciever') == True:
+        fth_chk == T
     else:
-        fth_chk = False
-    if frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk is True:
+        fth_chk = F
+    while frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk is True:
         return True
-    elif frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk == False:
-        return False
+    while frst_chk or scnd_chk or thrd_chk or frth_chk or fth_chk == False:
+        pass
+
+def check_rifle():
+    check_inv('Stock')
+    check_inv('Barrel')
+    check_inv('Trigger group')
+    check_sights('Sight')
+    check_inv('Reciever')
+    if check_inv('Stock') and check_inv('Barrel') and check_inv('Trigger group') and check_sights('Sight') and check_inv('Reciever') == True:
+        print('True')
+    if check_inv('Stock') and check_inv('Barrel') and check_inv('Trigger group') and check_sights('Sight') and check_inv('Reciever') == False:
+        print('False')
 
 def check_handgun():
     check_inv('Barrel')
-    if check_inv('Barrel') is True:
-        frst_chk = True
-    else:
-        frst_chk = False
     check_inv('Trigger group')
-    if check_inv('Trigger group') is True:
-        scnd_chk = True
-    else:
-        scnd_chk = False
     check_sights('Sight')
-    if check_sights('Sight') is True:
-        thrd_chk = True
-    else:
-        thrd_chk = False
     check_inv('Reciever')
-    if check_inv('Reciever') is True:
-        frth_chk = True
-    else:
-        fth_chk = False
-    if frst_chk and scnd_chk and thrd_chk and frth_chk is True:
-        inventory.remove("Barrel")
-        inventory.remove("Trigger group")
-        inventory.remove("Sight")
-        inventory.remove("Sight")
-        inventory.remove("Reciever")
+    if check_inv('Barrel') and check_inv('Trigger group') and check_sights('Sight') and check_inv('Reciever') == True:
         return True
-    elif frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk == False:
+    if check_inv('Barrel') and check_inv('Trigger group') and check_sights('Sight') and check_inv('Reciever') == False:
         return False
 
 def check_shotgun():
     check_inv('Stock')
-    if check_inv('Stock') is True:
-        frst_chk = True
-    else:
-        frst_chk = False
     check_inv('Barrel')
-    if check_inv('Barrel') is True:
-        scnd_chk = True
-    else:
-        scnd_chk = False
     check_inv('Trigger group')
-    if check_inv('Trigger group') is True:
-        thrd_chk = True
-    else:
-        thrd_chk = False
-    check_sights()
-    if check_inv('Sight') is True:
-        frth_chk = True
-    else:
-        frth_chk = False
+    check_inv('Sight')
     check_inv('Reciever')
-    if check_inv('Reciever') is True:
-        fth_chk = True
-    else:
-        fth_chk = False
-    if frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk is True:
-        inventory.remove("Stock")
-        inventory.remove("Barrel")
-        inventory.remove("Trigger group")
-        inventory.remove("Sight")
-        inventory.remove("Reciever")
+    if check_inv('Stock') and check_inv('Barrel') and check_inv('Trigger group') and check_inv('Sight') and check_inv('Reciever') == True:
         return True
-    elif frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk == False:
+    if check_inv('Stock') and check_inv('Barrel') and check_inv('Trigger group') and check_inv('Sight') and check_inv('Reciever') == False:
         return False
 
 def check_AR():
     check_inv('Stock')
     check_inv('Barrel')
     check_inv('Trigger group')
-    check_sights()
+    check_sights('Sight')
     check_inv('Reciever')
-    if check_inv('Stock') is True:
-        frst_chk = True
-    else:
-        frst_chk = False
-    if check_inv('Barrel') is True:
-        scnd_chk = True
-    else:
-        scnd_chk = False
-    if check_inv('Trigger group') is True:
-        thrd_chk = True
-    else:
-        thrd_chk = False
-    if check_sights() is True:
-        frth_chk = True
-    else:
-        frth_chk = False
-    if check_sights('Reciever') is True:
-        fth_chk = True
-    else:
-        fth_chk = False
-    if frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk is True:
-        inventory.remove("Stock")
-        inventory.remove("Barrel")
-        inventory.remove("Trigger group")
-        inventory.remove("Sight")
-        inventory.remove("Sight")
-        inventory.remove("Reciever")
-        inventory.remove("Reciever")
+    if check_inv('Stock') and check_inv('Barrel') and check_inv('Trigger group') and check_sights('Sight') and check_sights('Reciever') == True:
         return True
-    elif frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk == False:
+    if check_inv('Stock') and check_inv('Barrel') and check_inv('Trigger group') and check_sights('Sight') and check_sights('Reciever') == False:
         return False
 
 
 def craft_rifle():
-    check_rifle()
-    if check_rifle == True:
-        inventory.remove("Stock")
-        inventory.remove("Barrel")
-        inventory.remove("Trigger group")
-        inventory.remove("Sight")
-        inventory.remove("Sight")
-        inventory.remove("Reciever")
-        print(">>")
-        print("You assembled a Rifle!")
-        track_inventory()
-        print("Would you like to craft something else?")
-        print("Y / N")
-        print("")
-    elif check_rifle == False:
-        print("You need more parts")
-        crafting()
+    inventory.remove("Stock")
+    inventory.remove("Barrel")
+    inventory.remove("Trigger group")
+    inventory.remove("Sight")
+    inventory.remove("Sight")
+    inventory.remove("Reciever")
+    print(">>")
+    print("You assembled a Rifle!")
+    track_inventory()
+    print("Would you like to craft something else?")
+    print("Y / N")
+    print("")
 
 def craft_handgun():
     inventory.remove("Barrel")
@@ -761,14 +696,16 @@ def all_recipes():
 def crafting(): #This function determins the logic of crafting.
     print(">>")
     print("Would you like to craft?:   1")
+    print('')
     print("          Or,")
+    print('')
     print("Refrence crafting recipes?: 2")
     print("")
     print("Stop crafting:              3")
     print("")
-    choice = int(input("> "))
-    choice
-    if choice == 1:
+    choice0 = int(input("> "))
+    choice0
+    if choice0 == 1:
         print(">>")
         print("What would you like to craft?")
         print("Rifle:           1")
@@ -780,24 +717,30 @@ def crafting(): #This function determins the logic of crafting.
         choice1 = int(input("> "))
         choice1
         if choice1 == 1:
-            craft_rifle()
-            choice2 = str(input("> "))
-            if choice2 == 'Y':
+            check_rifle()
+            if check_rifle == 'True':
+                craft_rifle()
+                choice2 = str(input("> "))
+                if choice2 == 'Y':
+                    crafting()
+                elif choice2 == 'y':
+                    crafting()
+                elif choice2 == 'N':
+                    Next_move()
+                elif choice2 == 'n':
+                    Next_move()
+                elif choice2 == int:
+                    error()
+                    choice2
+                else:
+                    error()
+                    choice2
+            elif check_rifle == 'False':
+                print("You do not have all of the needed parts")
                 crafting()
-            if choice2 == 'y':
-                crafting()
-            elif choice2 == 'N':
-                Next_move()
-            elif choice2 == 'n':
-                Next_move()
-            elif choice2 == int:
-                error()
-                choice2
-            else:
-                error()
-                choice2
         elif choice1 == 2:
-            craft_handgun()
+            if check_handgun == True:
+                craft_handgun()
             choice2 = str(input("> "))
             if choice2 == 'Y':
                 crafting()
@@ -904,4 +847,5 @@ def end_game(): #A general purpose function to end the game properly.
     sys.exit()
 
 #My whole game can be accessed by calling this single function.
-Main_Menu()
+# Main_Menu()
+check_rifle()
