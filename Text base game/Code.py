@@ -843,8 +843,8 @@ def Main_Menu(): #My main menu. Simple but effective. You must be here to quit t
         Main_Menu()
 
 def end_game(): #A general purpose function to end the game properly.
-    print('"God speed Spiderman"')
-    sys.exit()
+    
+    sys.exit('"God speed Spiderman"')
 
 #My whole game can be accessed by calling this single function.
 # Main_Menu()
