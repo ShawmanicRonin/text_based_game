@@ -5,8 +5,8 @@ import sys
 Parts = ["Stock", "Barrel", "Trigger group", "Sight", "Reciever"] #These are my resources in the game
 
 #testing inventory
-inventory = ["Stock", "Stock", "Stock", "Stock", "Reciever", "Reciever", "Reciever", "Reciever", "Reciever", "Trigger group", "Trigger group", "Trigger group", "Trigger group", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight",]
-#inventory = [] #this list is edited as the game progresses.
+#inventory = ["Barrel", "Barrel", "Barrel", "Barrel", "Stock", "Stock", "Stock", "Stock", "Reciever", "Reciever", "Reciever", "Reciever", "Reciever", "Trigger group", "Trigger group", "Trigger group", "Trigger group", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight", "Sight",]
+inventory = [] #this list is edited as the game progresses.
 collection = [] #This list is related to displaying what you found after each search.
 
 def collect(part): #This function allows you to put parts into your inventory or leave them behind.
@@ -450,7 +450,7 @@ def inventory_man(): #This function allows you to edit the inventory list
                     inventory_man()
                 elif selec1 == 2:
                     Next_move()
-                elif selec1 == str:#play game and see if you can find any issues with current systems. 
+                elif selec1 == str:#endday msg play game and see if you can find any issues with current systems. 
                     error()
                     selec1
                 else:
@@ -491,50 +491,16 @@ def check_inv(value):
     if (value in inventory):
         return True
     else:
-        pass
-        crafting()
+        return False
 
 def check_sights(value):
     if inventory.count(value) >= 2:
         return True
     else:
-        pass
-        crafting()
+        return False
 
 #Something is wrong witht the crafting fucntion. 
 
-def check_rifle():
-    T = True
-    F = False
-    check_inv('Stock')
-    if check_inv('Stock') == True:
-        frst_chk == T
-    else:
-        frst_chk = F
-    check_inv('Barrel')
-    if check_inv('Barrel') == True:
-        scnd_chk == T
-    else:
-        scnd_chk = F
-    check_inv('Trigger group')
-    if check_inv('Trigger group') == True:
-        thrd_chk == T
-    else:
-        thrd_chk = F
-    check_sights('Sight')
-    if check_sights("Sight") == True:
-        frth_chk == T
-    else:
-        frth_chk = F
-    check_inv('Reciever')
-    if check_inv('Reciever') == True:
-        fth_chk == T
-    else:
-        fth_chk = F
-    while frst_chk and scnd_chk and thrd_chk and frth_chk and fth_chk is True:
-        return True
-    while frst_chk or scnd_chk or thrd_chk or frth_chk or fth_chk == False:
-        pass
 
 def check_rifle():
     check_inv('Stock')
@@ -543,9 +509,9 @@ def check_rifle():
     check_sights('Sight')
     check_inv('Reciever')
     if check_inv('Stock') and check_inv('Barrel') and check_inv('Trigger group') and check_sights('Sight') and check_inv('Reciever') == True:
-        print('True')
+        return True
     if check_inv('Stock') and check_inv('Barrel') and check_inv('Trigger group') and check_sights('Sight') and check_inv('Reciever') == False:
-        print('False')
+        return False
 
 def check_handgun():
     check_inv('Barrel')
@@ -587,9 +553,11 @@ def craft_rifle():
     inventory.remove("Sight")
     inventory.remove("Sight")
     inventory.remove("Reciever")
+    inventory.append("Rifle")
     print(">>")
     print("You assembled a Rifle!")
     track_inventory()
+    print('')
     print("Would you like to craft something else?")
     print("Y / N")
     print("")
@@ -604,6 +572,7 @@ def craft_handgun():
     print(">>")
     print("You assembled a Handgun!")
     track_inventory()
+    print('')
     print("Would you like to craft something else?")
     print("Y / N")
     print("")
@@ -618,6 +587,7 @@ def craft_shotgun():
     print(">>")
     print("You assembled a Shotgun!")
     track_inventory()
+    print('')
     print("Would you like to craft something else?")
     print("Y / N")
     print("")
@@ -635,6 +605,7 @@ def craft_ar():
     print("You assembled an AR-15!!!")
     print("How did you find this easter egg!? :D")
     track_inventory()
+    print('')
     print("Would you like to craft something else?")
     print("Y / N")
     print("")
@@ -703,9 +674,9 @@ def crafting(): #This function determins the logic of crafting.
     print("")
     print("Stop crafting:              3")
     print("")
-    choice0 = int(input("> "))
-    choice0
-    if choice0 == 1:
+    choice = int(input("> "))
+    choice
+    if choice == 1:
         print(">>")
         print("What would you like to craft?")
         print("Rifle:           1")
@@ -718,7 +689,7 @@ def crafting(): #This function determins the logic of crafting.
         choice1
         if choice1 == 1:
             check_rifle()
-            if check_rifle == 'True':
+            if check_rifle() == True:
                 craft_rifle()
                 choice2 = str(input("> "))
                 if choice2 == 'Y':
@@ -735,63 +706,77 @@ def crafting(): #This function determins the logic of crafting.
                 else:
                     error()
                     choice2
-            elif check_rifle == 'False':
+            else:
                 print("You do not have all of the needed parts")
                 crafting()
         elif choice1 == 2:
-            if check_handgun == True:
+            check_handgun()
+            if check_handgun() == True:
                 craft_handgun()
-            choice2 = str(input("> "))
-            if choice2 == 'Y':
-                crafting()
-            if choice2 == 'y':
-                crafting()
-            elif choice2 == 'N':
-                Next_move()
-            elif choice2 == 'n':
-                Next_move()
-            elif choice2 == int:
-                error()
-                choice2
+                choice2 = str(input("> "))
+                if choice2 == 'Y':
+                    crafting()
+                elif choice2 == 'y':
+                    crafting()
+                elif choice2 == 'N':
+                    Next_move()
+                elif choice2 == 'n':
+                    Next_move()
+                elif choice2 == int:
+                    error()
+                    choice2
+                else:
+                    error()
+                    choice2
             else:
-                error()
-                choice2
+                print("You do not have all of the needed parts")
+                crafting()
         elif choice1 == 3:
-            craft_shotgun()
-            choice2 = str(input("> "))
-            if choice2 == 'Y':
-                crafting()
-            if choice2 == 'y':
-                crafting()
-            elif choice2 == 'N':
-                Next_move()
-            elif choice2 == 'n':
-                Next_move()
-            elif choice2 == int:
-                error()
-                choice2
+            check_shotgun()
+            if check_shotgun() == True:
+                craft_shotgun()
+                choice2 = str(input("> "))
+                if choice2 == 'Y':
+                    crafting()
+                elif choice2 == 'y':
+                    crafting()
+                elif choice2 == 'N':
+                    Next_move()
+                elif choice2 == 'n':
+                    Next_move()
+                elif choice2 == int:
+                    error()
+                    choice2
+                else:
+                    error()
+                    choice2
             else:
-                error()
-                choice2
+                print("You do not have all of the needed parts")
+                crafting()
         elif choice1 == 4:
             crafting()
         elif choice1 == 421: #If you input the number of my old squadron then you will get a special gun! granted you have the materials...
-            craft_ar()
-            choice2 = str(input("> "))
-            if choice2 == 'Y':
-                crafting()
-            if choice2 == 'y':
-                crafting()
-            elif choice2 == 'N':
-                Next_move()
-            elif choice2 == 'n':
-                Next_move()
-            elif choice2 == int:
-                error()
-                choice2
+            check_AR()
+            if check_AR() == True:
+                craft_ar()
+                choice2 = str(input("> "))
+                if choice2 == 'Y':
+                    crafting()
+                elif choice2 == 'y':
+                    crafting()
+                elif choice2 == 'N':
+                    Next_move()
+                elif choice2 == 'n':
+                    Next_move()
+                elif choice2 == int:
+                    error()
+                    choice2
+                else:
+                    error()
+                    choice2
             else:
-                error()
-                choice2
+                print("You do not have all of the needed parts")
+                crafting()
         elif choice1 == str:
             error()
             choice1
@@ -801,7 +786,7 @@ def crafting(): #This function determins the logic of crafting.
         print(">>")
         print("You left your workshop")
         Next_move()
-    elif choice == str:
+    elif choice is str:
         error()
         choice
     else:
@@ -838,14 +823,16 @@ def Main_Menu(): #My main menu. Simple but effective. You must be here to quit t
         prompt()
     elif menu_choice == 5:
         end_game()
+    elif menu_choice is str:
+        error()
+        menu_choice
     else:
         error()
         Main_Menu()
 
 def end_game(): #A general purpose function to end the game properly.
-    
     sys.exit('"God speed Spiderman"')
 
 #My whole game can be accessed by calling this single function.
-# Main_Menu()
-check_rifle()
+Main_Menu()
+#????
